@@ -13,7 +13,7 @@ $config['instagram_client_name']	= 'My app';
 $config['instagram_client_id']		= '';
 $config['instagram_client_secret']	= '';
 $config['instagram_callback_url']	= '';
-$config['instagram_website']		= '';
+$config['instagram_website']		= ''; 
 $config['instagram_description']	= 'Bla';
 
 /**
