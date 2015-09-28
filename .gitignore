@@ -1,2 +1,3 @@
 .idea/
-test
+application/config/Instagram_api.php
+application/config/database.php
