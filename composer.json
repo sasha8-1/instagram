@@ -1,0 +1,34 @@
+{
+  "description": "The CodeIgniter framework",
+  "name": "codeigniter/framework",
+  "type": "project",
+  "homepage": "http://codeigniter.com",
+  "license": "MIT",
+  "support": {
+    "forum": "http://forum.codeigniter.com/",
+    "wiki": "https://github.com/bcit-ci/CodeIgniter/wiki",
+    "irc": "irc://irc.freenode.net/codeigniter",
+    "source": "https://github.com/bcit-ci/CodeIgniter"
+  },
+  "require": {
+    "php": ">=5.2.4",
+    "ApiInstagram": "dev-master"
+  },
+  "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "ApiInstagram",
+                "version": "dev-master",
+                "source": {
+                    "url": "https://github.com/ianckc/CodeIgniter-Instagram-Library.git",
+                    "type": "git",
+                    "reference": "origin/master"
+                }
+            }
+        }
+    ],
+  "require-dev": {
+    "mikey179/vfsStream": "1.1.*"
+  }
+}
