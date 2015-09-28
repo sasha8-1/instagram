@@ -24,7 +24,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Instagram_api {
+class Instagram {
 
 	/*
 	 * Variable to hold an insatance of CodeIgniter so we can access CodeIgniter features
@@ -74,7 +74,7 @@ class Instagram_api {
     	$this->codeigniter_instance =& get_instance();
 
     	// Load the Instagram API language file
-    	$this->codeigniter_instance->load->config('Instagram_api');
+    	$this->codeigniter_instance->load->config('Instagram');
 
     }
 
