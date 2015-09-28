@@ -74,7 +74,7 @@ class Instagram {
     	$this->codeigniter_instance =& get_instance();
 
     	// Load the Instagram API language file
-    	$this->codeigniter_instance->load->config('Instagram');
+    	$this->codeigniter_instance->load->config('Instagram_api');
 
     }
 
