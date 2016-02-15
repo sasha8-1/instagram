@@ -12,13 +12,16 @@ class GetCookie extends CI_Controller
     public function index()
     {
 
-        getCookie([
+        $result = getCookie([
             'userName' => $this->config->item('userName'),
             'password' => $this->config->item('password'),
             'PATH_IMAGE' => $this->config->item('PATH_IMAGE')
         ]);
-//        echo $this->config->item('PATH_IMAGE');
-//        $this->output->set_status_header('200');
+        if ($result['status'] == 200) {
+            $this->output->set_status_header('200');
+        } else {
+            $this->output->set_status_header('400');
+        }
     }
 
 //    public function check() {
