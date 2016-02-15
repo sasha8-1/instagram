@@ -17,7 +17,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = 'http://localhost';
+
+
+/*
+|--------------------------------------------------------------------------
+| Instagram data
+|--------------------------------------------------------------------------
+|
+*/
+$config['userName'] = '********';
+$config['password'] = '********';
+$config['PATH_IMAGE'] =  FCPATH."assets/images/";
+
 
 /*
 |--------------------------------------------------------------------------
