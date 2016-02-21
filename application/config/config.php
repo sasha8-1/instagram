@@ -26,8 +26,9 @@ $config['base_url'] = 'http://localhost';
 |--------------------------------------------------------------------------
 |
 */
-$config['userName'] = '********';
-$config['password'] = '********';
+$config['userName'] = '**********';
+$config['password'] = '**********';
+$config['PATH_COOKIE'] =  FCPATH."assets/cookie/";
 $config['PATH_IMAGE'] =  FCPATH."assets/images/";
 
 
