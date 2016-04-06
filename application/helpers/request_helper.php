@@ -2,7 +2,7 @@
 
 function SendRequest($data) {
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://i.instagram.com/api/v1/' . $data['url']);
+    curl_setopt($ch, CURLOPT_URL, $data['url']);
     if (array_key_exists('agent', $data)) curl_setopt($ch, CURLOPT_USERAGENT, $data['agent']);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);

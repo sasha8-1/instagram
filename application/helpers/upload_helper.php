@@ -13,14 +13,14 @@ function GetPostData($filename) {
     }
 }
 
-function uploadImage($conf) {
+function postingImage($conf) {
 
     $image = GetPostData($conf['PATH_IMAGE']);
 
     $agent = GenerateUserAgent();
 
     $dataUpload = SendRequest(array(
-        'url' => 'media/upload/',
+        'url' => 'https://i.instagram.com/api/v1/media/upload/',
         'post' => $image,
         'agent' => $agent,
         'useCookie' => true,
@@ -43,7 +43,7 @@ function uploadImage($conf) {
     $new_data = 'signed_body='.$sig.'.'.urlencode($requestData).'&ig_sig_key_version=4';
 
     $response = SendRequest([
-        'url' => 'media/configure/',
+        'url' => 'https://i.instagram.com/api/v1/media/configure/',
         'post' => $new_data,
         'agent' => $agent,
         'useCookie' => true,
@@ -56,4 +56,20 @@ function uploadImage($conf) {
         'data' => $data
     );
 
+}
+
+function uploadImage($conf, $depth = 0) {
+    $depth = (int)$depth;
+    $depth = $depth + 1;
+    $result = postingImage($conf);
+    if ($result['status'] != 200 && $depth < 3) {
+        // hack
+        file_get_contents("http://localhost/instagram/index.php/GetCookie/");
+        return uploadImage($conf, $depth);
+    } else if ($result['status'] != 200 && $depth >= 3) {
+        log_message('error', 'Don\'t upload Image');
+        throw new Exception('Error');
+    } else {
+        return $result;
+    }
 }

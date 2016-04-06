@@ -21,5 +21,6 @@ class GetCookie extends CI_Controller
             ->set_status_header($result['status'])
             ->set_output(json_encode($result['data']));
     }
+    
 }
 

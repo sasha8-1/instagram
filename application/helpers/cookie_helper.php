@@ -15,7 +15,7 @@ function getCookie($userData)
     $data = 'signed_body=' . $sig . '.' . urlencode($data) . '&ig_sig_key_version=4';
 
     $response = SendRequest(array(
-        'url' => 'accounts/login/',
+        'url' => 'https://i.instagram.com/api/v1/accounts/login/',
         'post' => $data,
         'agent' => $agent,
         'PATH_COOKIE' => $userData['PATH_COOKIE']
