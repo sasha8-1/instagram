@@ -2,7 +2,8 @@
 
 function SendRequest($data) {
     $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $data['url']);
+    $get = array_key_exists('get', $data) ? "?".http_build_query($data['get']) : "";
+    curl_setopt($ch, CURLOPT_URL, $data['url'].$get);
     if (array_key_exists('agent', $data)) curl_setopt($ch, CURLOPT_USERAGENT, $data['agent']);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
@@ -24,6 +25,18 @@ function SendRequest($data) {
     $http = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
     return array($http, $response);
+}
+
+function saveFile($url, $filePatch) {
+    $ch = curl_init($url);
+    $fp = fopen($filePatch, 'wb');
+    curl_setopt($ch, CURLOPT_FILE, $fp);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_exec($ch);
+    $http = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    fclose($fp);
+    return $http;
 }
 
 function GenerateUserAgent()

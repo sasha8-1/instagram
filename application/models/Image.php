@@ -8,9 +8,15 @@ class Image extends CI_Model
         parent::__construct();
     }
 
-    function select_images()
+    function getImages()
     {
         $query = $this->db->get('post');
         return $query->result();
+    }
+    function setImages($data) {
+        $this->db->insert('post', $data);
+    }
+    function deleteImage($id) {
+        $this->db->delete('post', array('id' => $id));
     }
 }

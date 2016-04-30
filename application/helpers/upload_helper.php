@@ -62,13 +62,14 @@ function uploadImage($conf, $depth = 0) {
     $depth = (int)$depth;
     $depth = $depth + 1;
     $result = postingImage($conf);
+    print_r($result);
     if ($result['status'] != 200 && $depth < 3) {
         // hack
         file_get_contents("http://localhost/instagram/index.php/GetCookie/");
         return uploadImage($conf, $depth);
     } else if ($result['status'] != 200 && $depth >= 3) {
         log_message('error', 'Don\'t upload Image');
-        throw new Exception('Error');
+//        throw new Exception('Error');
     } else {
         return $result;
     }
