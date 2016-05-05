@@ -8,6 +8,7 @@ class UploadImage extends CI_Controller
         parent::__construct();
         $this->load->helper('upload');
         $this->load->model('Image');
+        set_time_limit(0);
     }
 
     public function index()
@@ -23,7 +24,7 @@ class UploadImage extends CI_Controller
                     'PATH_COOKIE' => $this->config->item('PATH_COOKIE'),
                     'title' => $value->title
                 ]);
-                sleep(5);
+                sleep(30);
                 print_r($result);
                 unlink($pathImage);
                 $this->Image->deleteImage($value->id);
