@@ -13,8 +13,9 @@ class UploadImage extends CI_Controller
 
     public function index()
     {
+        $amount = (int)$this->input->get('amount');
 
-        $imagesArray = $this->Image->getImages();
+        $imagesArray = $this->Image->getImages(0, $amount);
 
         foreach ($imagesArray as $key => $value) {
             if (file_exists($this->config->item('PATH_IMAGE') . $value->image)) {
@@ -25,16 +26,15 @@ class UploadImage extends CI_Controller
                     'title' => $value->title
                 ]);
                 sleep(30);
-                print_r($result);
                 unlink($pathImage);
                 $this->Image->deleteImage($value->id);
             }
         }
-//
-//        print_r($imagesArray);
+
+        print_r($imagesArray);
 //        $this->output
 //            ->set_status_header($result['status'])
-//            ->set_output(json_encode($result['data']));к3
+//            ->set_output(json_encode($result['data']));
     }
 }
 

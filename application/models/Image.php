@@ -8,9 +8,9 @@ class Image extends CI_Model
         parent::__construct();
     }
 
-    function getImages()
+    function getImages($start, $end)
     {
-        $query = $this->db->get('post');
+        $query = $this->db->get('post', $end, $start);
         return $query->result();
     }
     function setImages($data) {
