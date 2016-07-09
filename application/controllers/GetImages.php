@@ -23,7 +23,7 @@ class GetImages extends CI_Controller
         // save all images in folder
         $path = 'assets/images/';
         foreach($images as $key => $value) {
-            $expansion = $info = new SplFileInfo($value->url);
+            $expansion = new SplFileInfo($value->url);
             $fileName = uniqid('post_', true).'.'.$expansion->getExtension();
             $result = saveFile($value->url, $path.$fileName);
             if ($result == 200) {

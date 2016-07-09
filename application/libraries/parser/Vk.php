@@ -5,6 +5,11 @@ class Vk
 
     private $ci;
     private $data;
+    private $filterWords = [
+        'Показать полностъю',
+        'Показать полностью',
+        'Читать продолжение',
+    ];
 
     private $versionApi = 5.7;
     private $urlApi = 'http://api.vk.com/method/';
@@ -36,20 +41,36 @@ class Vk
         return $likes / count($data);
     }
 
+    private function filterWord($text) {
+        foreach($this->filterWords as $key => $value) {
+            if (strpos($text, $value)) return false;
+        }
+        return true;
+    }
+
     private function filterImages($data, $timestamp, $likes) {
 
         $options = new stdClass;
         $options->timestamp = $timestamp;
         $options->likes = $likes;
         $result = array_filter($data, function ($item) use ($options) {
-            return $item->date > $options->timestamp && isset($item->attachments) && isset($item->likes) && $item->likes->count > $options->likes;
+            return $item->date > $options->timestamp &&
+            isset($item->attachments) &&
+            isset($item->likes) &&
+            $item->likes->count > $options->likes &&
+            $this->filterWord($item->text);
         });
 
         $images = [];
         foreach($result as $key => $value) {
             $item = new stdClass;
             $item->text = $value->text;
-            $item->url = $value->attachments[0]->photo->photo_604;
+            // check. if !isset photo save gif
+            if (!property_exists($value->attachments[0], 'photo')) {
+                $item->url = $value->attachments[0]->doc->url;
+            } else {
+                $item->url = $value->attachments[0]->photo->photo_604;
+            }
             array_push($images, $item);
         }
 

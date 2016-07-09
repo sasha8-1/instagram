@@ -1,12 +1,20 @@
 <?php
 
 function SendRequest($data) {
+
+    $followLocation = array_key_exists('FOLLOW_LOCATION', $data) ? $data['FOLLOW_LOCATION'] : TRUE;
+
     $ch = curl_init();
     $get = array_key_exists('get', $data) ? "?".http_build_query($data['get']) : "";
     curl_setopt($ch, CURLOPT_URL, $data['url'].$get);
-    if (array_key_exists('agent', $data)) curl_setopt($ch, CURLOPT_USERAGENT, $data['agent']);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, $followLocation);
+
+    if (array_key_exists('agent', $data)) curl_setopt($ch, CURLOPT_USERAGENT, $data['agent']);
+
+    if (array_key_exists('headers', $data)) {
+        curl_setopt($ch,  CURLOPT_HTTPHEADER, $data['headers']);
+    }
 
     if (array_key_exists('post', $data)) {
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -16,14 +24,16 @@ function SendRequest($data) {
     if (array_key_exists('useCookie', $data)) {
         curl_setopt($ch, CURLOPT_COOKIEFILE, $data['PATH_COOKIE'].'cookies.txt');
     }
-
     if (array_key_exists('PATH_COOKIE', $data) && !array_key_exists('useCookie', $data)) {
         curl_setopt($ch, CURLOPT_COOKIEJAR, $data['PATH_COOKIE'].'cookies.txt');
     }
 
     $response = curl_exec($ch);
+//    $sent_headers = curl_getinfo($ch, CURLINFO_HEADER_OUT);
+//    print_r($sent_headers);
     $http = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     curl_close($ch);
+
     return array($http, $response);
 }
 
